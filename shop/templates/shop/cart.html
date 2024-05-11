@@ -1,0 +1,263 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Your Cart {% endblock %}
+
+
+{% block body %}
+{%load static%}
+
+
+<section class="jumbotron text-center py-6">
+    <div class="container">
+        <h1 class="jumbotron-heading">Cart</h1>
+        <p class="lead text-muted mb-0">Cart Page build with mcommerce</p>
+    </div>
+</section>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+
+
+
+    <section class="h-100 h-custom" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body p-4">
+
+                            <div class="row">
+
+                                <div class="col-lg-7">
+                                    <h5 class="mb-3"><a href="/shop/products" class="text-body">
+                                            <i class="bi bi-arrow-left"> </i>Continue shopping</a></h5>
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div>
+                                            <p class="mb-1">Shopping cart</p>
+                                            <p class="mb-0" id="total-count">You have 0 products in your cart</p>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0"><span class="text-muted" id="total-products">Total Items :
+                                                    0</span>
+                                            </p>
+                                            <button class="btn btn-primary" id="clearCartBtn">Clear Cart</button>
+                                        </div>
+                                    </div>
+                                    <!-- <div id="deleteAlert" class="alert alert-warning alert-dismissible fade" role="alert">
+                                        <strong>Item Deleted!</strong> The item has been removed from your cart.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="bi bi-file-earmark-x"></i></button>
+                                    </div> -->
+                                    <div id="cart-container">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-5">
+
+                                    <div class="card bg-primary text-white rounded-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h5 class="mb-0">Card details</h5>
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                                                    class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
+                                            </div>
+
+                                            <p class="small mb-2">Card type</p>
+                                            <a href="#!" type="submit" class="text-white"><i
+                                                    class="fab fa-cc-mastercard fa-2x me-2"></i></a>
+                                            <a href="#!" type="submit" class="text-white"><i
+                                                    class="fab fa-cc-visa fa-2x me-2"></i></a>
+                                            <a href="#!" type="submit" class="text-white"><i
+                                                    class="fab fa-cc-amex fa-2x me-2"></i></a>
+                                            <a href="#!" type="submit" class="text-white"><i
+                                                    class="fab fa-cc-paypal fa-2x"></i></a>
+
+                                            <form class="mt-4">
+                                                <div data-mdb-input-init class="form-outline form-white mb-4">
+                                                    <input type="text" id="typeName"
+                                                        class="form-control form-control-lg"
+                                                        placeholder="Enter Your Ful Name" />
+                                                    <label class="form-label" for="typeName">Full Name</label>
+                                                </div>
+
+                                                <div data-mdb-input-init class="form-outline form-white mb-4">
+                                                    <input type="text" id="typePhone"
+                                                        class="form-control form-control-lg" placeholder="##########" />
+                                                    <label class="form-label" for="typeText">Phone</label>
+                                                </div>
+
+                                                <div data-mdb-input-init class="form-outline form-white mb-4">
+                                                    <input type="text" id="typeAddress"
+                                                        class="form-control form-control-lg"
+                                                        placeholder="Please Enter Your Delivery Address" />
+                                                    <label class="form-label" for="typeText">Address</label>
+                                                </div>
+
+                                                <div data-mdb-input-init class="form-outline form-white mb-4">
+                                                    <input type="text" id="typeCardName"
+                                                        class="form-control form-control-lg"
+                                                        placeholder="Cardholder's Name" />
+                                                    <label class="form-label" for="typeName">Cardholder's Name</label>
+                                                </div>
+                                                <div data-mdb-input-init class="form-outline form-white mb-4">
+                                                    <input type="text" id="typeCardNumber"
+                                                        class="form-control form-control-lg"
+                                                        placeholder="1234 1234 1234 1234" />
+                                                    <label class="form-label" for="typeName">Card Number</label>
+                                                </div>
+                                                <div class="row mb-4">
+                                                    <div class="col-md-6">
+                                                        <div data-mdb-input-init class="form-outline form-white">
+                                                            <input type="text" id="typeExp"
+                                                                class="form-control form-control-lg" placeholder="MM/YY"
+                                                                id="exp" minlength="5" maxlength="30" />
+                                                            <label class="form-label" for="typeExp">Expiry</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div data-mdb-input-init class="form-outline form-white">
+                                                            <input type="password" id="typeText1"
+                                                                class="form-control form-control-lg"
+                                                                placeholder="&#9679;&#9679;&#9679;" size="1"
+                                                                minlength="3" maxlength="3" />
+                                                            <label class="form-label" for="typeText1">Cvv</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+
+                                            <hr class="my-4">
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Subtotal</p>
+                                                <p class="mb-2" id="totalAmount">$0.00</p>
+
+                                            </div>
+
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-2">Shipping</p>
+                                                <p class="mb-2">$20.00</p>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <p class="mb-2">Total(Incl. taxes)</p>
+                                                <p class="mb-2">$4818.00</p>
+                                            </div>
+
+                                            <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                                class="btn btn-info btn-block btn-lg">
+                                                <div class="d-flex justify-content-between">
+                                                    <span>$4818.00</span>
+                                                    <span>Checkout <i
+                                                            class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+</div>
+
+
+
+
+{% endblock %}
+{%block script%}
+
+<script>
+    function clearcart() {
+
+        // Get the clear cart button element
+        const clearCartBtn = document.getElementById('clearCartBtn');
+
+        // Add click event listener to the button
+        clearCartBtn.addEventListener('click', () => {
+            // Clear cart items from local storage
+            localStorage.removeItem('cart');
+
+            // Redirect to the cart page or reload the current page
+            window.location.href = '/shop/cart';  // Replace '/cart' with your cart page URL
+        });
+    }
+    clearcart()
+
+
+
+    const cartData = JSON.parse(localStorage.getItem("cart"));
+    console.log(cartData)
+    function updateAmount() {
+
+        // Retrieve the cart data from local storage
+        // Retrieve the cart data from local storage
+        const cartData = JSON.parse(localStorage.getItem("cart"));
+
+        // Initialize total amount
+        let totalAmount = 0;
+
+        // Check if cart data is not empty and is an array
+        // if (Array.isArray(cartData) && cartData.length > 0) {
+            // Loop through each item in the cart
+            // let totalAmount = 0;
+
+            // Loop through each item in the cart data
+            cartData.forEach(item => {
+                console.log(item)
+                // Calculate the total amount for each item (quantity * price) and add it to the overall total
+                totalAmount += item.quantity * item.price;
+            });
+        // }
+        console.log(totalAmount)
+        // Update the total amount element with the calculated total
+        const totalAmountElement = document.getElementById("totalAmount");
+        totalAmountElement.textContent = "$" + totalAmount.toFixed(2);
+
+    }
+    // updateAmount()
+
+</script>
+<!-- Inside your HTML template -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{%static 'shop/javascript/basic.js'%}">
+    renderCartItems();</script>
+
+// function clearcart(){
+// console.log("Clear cart clicked")
+// localStorage.removeItem("cart")
+// updateCartCount()
+// renderCartItems()
+// }
+
+
+
+
+
+
+{%endblock%}

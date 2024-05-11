@@ -1,0 +1,97 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Your Search {% endblock %}
+
+
+{% block body %}
+
+{%load static%}
+
+
+
+<section style="background-color: #eee;">
+    <div id="product-carousel" class="carousel container py-4" data-ride="carousel">
+        <section class="jumbotron text-center py-6">
+            <div class="container">
+                <h1 class="jumbotron-heading">Your Search</h1>
+                <p class="lead text-muted mb-0">Feel Free To Search Your Favorite Product</p>
+            </div>
+          </section>
+          <div class="container">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tracker</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+          </div>
+        {% if range %}
+        <div class="carousel-inner">
+            {% for slide_num in range %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img class="card-img-top" src="/media/{{ product.image }}" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.product_name }}</h5>
+                                <p class="card-text">{{ product.product_des }}</p>
+                                <p class="card-text">Category: {{ product.category }}</p>
+                                <p class="card-text">Price: ${{ product.price }}</p>
+                                <!-- <a href="#" class="btn btn-primary">Buy Now</a> -->
+                                <form action="/shop/prodview/" method="POST">
+                                    {% csrf_token%}
+                                    <input name="myid" type="hidden" value="{{ product.id }}" />
+                                    <!-- <button type="button" id="pr{{product.id}}" class="btn btn-primary buy-now-btn cart">Add To Cart</button>
+                                                       -->
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary buy-now-btn cart"
+                                      data-product-id="{{ product.id }}"
+                                      data-product-name="{{ product.product_name }}"
+                                      data-product-des="{{ product.product_des }}"
+                                      data-product-price="{{ product.price }}"
+                                      data-product-image="{{ product.image }}"
+                                    >
+                                      Add To Cart
+                                    </button>
+                                    <button type="submit" class="btn btn-primary buy-now-btn">
+                                      Qucik View
+                                    </button>
+                                  </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 text-center">
+                    <h2 style="color: red; margin-top: 20px;">Result Not Found</h2>
+                    <img src="{% static 'shop/images/not_found.png'%}" alt="Result Not Found">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+{%block script%} 
+
+    <script src="{%static 'shop/javascript/basic.js'%}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{%endblock%}
+
+
+
